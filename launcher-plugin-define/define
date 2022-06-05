@@ -1,0 +1,97 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import sys
+
+import os
+from multiprocessing import Process
+
+
+def detachify(func):
+    """Decorate a function so that its calls are async in a detached process.
+
+    Usage
+    -----
+
+    .. code::
+            import time
+
+            @detachify
+            def f(message):
+                time.sleep(5)
+                print(message)
+
+            f('Async and detached!!!')
+
+    """
+    # create a process fork and run the function
+    def forkify(*args, **kwargs):
+        if os.fork() != 0:
+            return
+        func(*args, **kwargs)
+
+    # wrapper to run the forkified function
+    def wrapper(*args, **kwargs):
+        proc = Process(target=lambda: forkify(*args, **kwargs))
+        proc.start()
+        proc.join()
+        return
+
+    return wrapper
+
+@detachify
+def lookup(word):
+    os.system('flatpak run org.goldendict.GoldenDict ' + word)
+
+# App
+
+class App(object):
+
+    def __init__(self):
+        self.match = None
+
+    def activate(self, index):
+        if not self.match:
+            return
+
+        lookup(self.match)
+        sys.stdout.write('"Close"\n')
+        sys.stdout.flush()
+
+    def search(self, query):
+        self.match = query.split(' ', 1)[1]
+
+        sys.stdout.write(json.dumps({
+            'Append': {
+                'id': 0,
+                'name': 'Find Definition',
+                'description': f'Lookup {self.match}',
+                'keywords': None,
+                'icon': None,
+                'exec': None,
+                'window': None
+            }
+        }))
+        sys.stdout.write('\n')
+
+        sys.stdout.write('"Finished"\n')
+        sys.stdout.flush()
+
+# Main Execution
+
+def main():
+    app = App()
+
+    for line in sys.stdin:
+        try:
+            request = json.loads(line)
+            if 'Search' in request:
+                app.search(request['Search'])
+            elif 'Activate' in request:
+                app.activate(request['Activate'])
+        except json.decoder.JSONDecodeError:
+            pass
+
+if __name__ == '__main__':
+    main()
