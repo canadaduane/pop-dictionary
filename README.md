@@ -11,6 +11,7 @@ This brings together several resources that create an easy-to-use dictionary exp
 1. Install GoldenDict (e.g. via flatpak)
 2. Install Dictionaries
 3. Install Pop Launcher "define" plugin
+4. Open  your GoldenDict settings and tell it where your shiny new dictionaries are located (`~/dictionaries`)
 
 See the `install.sh` script which automates steps 2 & 3.
 
