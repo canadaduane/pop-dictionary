@@ -2,6 +2,10 @@
 
 This brings together several resources that create an easy-to-use dictionary experience similar to Mac OS X. You can open the Pop Launcher and type "define XYZ" to show the definition of XYZ in multiple dictionaries.
 
+<img src="preview/launcher-example.png" />
+
+<img src="preview/dictionary-example.png" />
+
 ## Setup
 
 1. Install GoldenDict (e.g. via flatpak)
