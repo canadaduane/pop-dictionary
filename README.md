@@ -8,6 +8,12 @@ This brings together several resources that create an easy-to-use dictionary exp
 
 ## Setup
 
+#### Automated
+
+`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/canadaduane/pop-dictionary/main/install.sh)"`
+
+#### Manual
+
 1. Install GoldenDict (e.g. via flatpak)
 2. Install Dictionaries
 3. Install Pop Launcher "define" plugin
@@ -17,4 +23,4 @@ See the `install.sh` script which automates steps 2 & 3.
 
 ## English Dictionaries
 
-See `dictionaries.md` for a list of sources of English language dictionaries, freely available.
+See `dictionaries.md` for a list of sources of English language dictionaries, freely available. Then you can download that dictionary to `~/.pop-dictionary/dictionaries` and extract.
