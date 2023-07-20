@@ -36,7 +36,7 @@ flatpak override org.goldendict.GoldenDict --user --filesystem=xdg-data:ro
 
 # Edit the GoldenDict XML to include pop-dictionary/dictionaries path
 # (Keep all other GoldenDict settings untouched)
-python - <<'EOF'
+python3 - <<'EOF'
 import xml.etree.ElementTree as ET
 import os
 
